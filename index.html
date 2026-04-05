@@ -438,8 +438,8 @@
       <div class="dashboard-grid">
         <div class="chart-card">
           <div class="chart-card-header">
-            <div class="chart-card-title">Strategy</div>
-            <span class="chart-card-badge badge-strategy">Target</span>
+            <div class="chart-card-title">Investment Overview</div>
+            <span class="chart-card-badge badge-strategy">Strategy</span>
           </div>
           <div class="chart-container">
             <canvas id="strategyChart"></canvas>
@@ -454,7 +454,7 @@
         <div class="chart-card">
           <div class="chart-card-header">
             <div class="chart-card-title">Actual Holdings</div>
-            <span class="chart-card-badge badge-actual">Current</span>
+            <span class="chart-card-badge badge-actual">Actual</span>
           </div>
           <div class="chart-container">
             <canvas id="actualChart"></canvas>
@@ -595,15 +595,15 @@
 
     // ---- DATA ----
     var strategyData = {
-      labels: ['Real Estate','Public Equities','Aera Systems','Cash Reserves','Harpeth Overlook','Gold','Crypto','Commodities','Private Funds'],
-      values: [1100000, 693947, 500000, 267839, 190690, 97396, 60873, 60873, 36524],
-      colors: ['#e89530','#5591c7','#4f98a3','#6daa45','#7a6fdf','#d4a843','#dd6974','#bb7d53','#a89fef']
+      labels: ['Real Estate','Public Equities','Aera Systems','Cash Reserves','Harpeth Overlook','Commodities','Private Funds'],
+      values: [1100000, 693947, 500000, 267839, 190690, 219142, 36524],
+      colors: ['#e89530','#5591c7','#4f98a3','#6daa45','#7a6fdf','#d4a843','#a89fef']
     };
 
     var actualData = {
-      labels: ['Real Estate','Aera Systems','Cash (Uninvested)','Harpeth Overlook'],
-      values: [1100000, 500000, 1217452, 190690],
-      colors: ['#e89530','#4f98a3','#6daa45','#7a6fdf']
+      labels: ['Real Estate','Aera Systems','Cash (Uninvested)','Harpeth Overlook','Commodities'],
+      values: [1100000, 500000, 1217452, 190690, 0],
+      colors: ['#e89530','#4f98a3','#6daa45','#7a6fdf','#d4a843']
     };
 
     var stockPortion = 693947;
