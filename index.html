@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Koziol Brothers LLC — Investment Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --font-body: 'Inter', 'Helvetica Neue', sans-serif;
+      --font-display: 'DM Sans', 'Helvetica Neue', sans-serif;
+      --color-bg: #0f1117;
+      --color-surface: #171921;
+      --color-surface-2: #1e2030;
+      --color-border: #2a2d3e;
+      --color-text: #e4e4e8;
+      --color-text-muted: #8b8d9e;
+      --color-text-faint: #555770;
+      --color-primary: #4f98a3;
+      --color-primary-hover: #3d7c86;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-xl: 1rem;
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+      --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      min-height: 100dvh;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.6;
+    }
+
+    /* ===== LOGIN VIEW ===== */
+    #loginView {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100dvh;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 380px;
+      padding: 2.5rem;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-md);
+    }
+
+    .logo-mark {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .logo-mark svg { flex-shrink: 0; }
+    .logo-mark h1 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+    .logo-mark .subtitle {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--color-text-muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      margin-bottom: 0.375rem;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 0.625rem 0.875rem;
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      color: var(--color-text);
+      font-size: 0.9375rem;
+      outline: none;
+      transition: border-color var(--transition);
+    }
+    .form-group input:focus { border-color: var(--color-primary); }
+
+    .btn-primary {
+      width: 100%;
+      padding: 0.625rem 1rem;
+      background: var(--color-primary);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+
+    .error-msg {
+      display: none;
+      font-size: 0.8125rem;
+      color: #e05252;
+      margin-top: 0.75rem;
+      text-align: center;
+    }
+
+    /* ===== PORTAL VIEW ===== */
+    #portalView { display: none; }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-surface);
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .header-left svg { flex-shrink: 0; }
+    .header-left h1 {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .header-left span {
+      font-size: 0.6875rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .btn-signout {
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      background: none;
+      border: 1px solid var(--color-border);
+      padding: 0.375rem 0.875rem;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .btn-signout:hover {
+      color: var(--color-text);
+      border-color: var(--color-text-muted);
+    }
+
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Section headers */
+    .section-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-primary);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 1.375rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--color-text);
+    }
+
+    /* 2x2 Dashboard grid */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 768px) {
+      .dashboard-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Chart cards */
+    .chart-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+    }
+    .chart-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .chart-card-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .chart-card-badge {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      padding: 0.1875rem 0.5rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-strategy { background: rgba(79,152,163,0.15); color: #4f98a3; }
+    .badge-actual { background: rgba(218,113,1,0.15); color: #e89530; }
+    .badge-detail { background: rgba(122,111,223,0.15); color: #a89fef; }
+
+    /* Chart container */
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+    .chart-total {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      pointer-events: none;
+    }
+    .chart-total-value {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--color-text);
+      font-variant-numeric: tabular-nums;
+    }
+    .chart-total-label {
+      font-size: 0.625rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Legends */
+    .chart-legend {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.3rem 0.75rem;
+      margin-top: 1rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.6875rem;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .legend-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .legend-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .legend-value {
+      margin-left: auto;
+      font-variant-numeric: tabular-nums;
+      color: var(--color-text);
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    /* Empty state */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      text-align: center;
+      min-height: 200px;
+    }
+    .empty-state-icon {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--color-surface-2);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .empty-state-icon svg { width: 24px; height: 24px; color: var(--color-text-faint); }
+    .empty-state-title {
+      font-family: var(--font-display);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      margin-bottom: 0.25rem;
+    }
+    .empty-state-desc {
+      font-size: 0.75rem;
+      color: var(--color-text-faint);
+      max-width: 260px;
+    }
+
+    /* Divider */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin: 1.5rem 0 2rem 0;
+    }
+
+    /* Documents */
+    .doc-category { margin-bottom: 2rem; }
+    .doc-category-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-faint);
+      margin-bottom: 0.75rem;
+      padding-left: 0.25rem;
+    }
+    .doc-list { display: grid; gap: 0.5rem; }
+    .doc-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.875rem 1rem;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      transition: all var(--transition);
+    }
+    .doc-row:hover {
+      border-color: var(--color-primary);
+      background: var(--color-surface-2);
+    }
+    .doc-icon {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(79,152,163,0.1);
+      border-radius: var(--radius-md);
+      flex-shrink: 0;
+    }
+    .doc-icon svg { width: 18px; height: 18px; color: var(--color-primary); }
+    .doc-info { flex: 1; min-width: 0; }
+    .doc-title { font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.125rem; }
+    .doc-meta { font-size: 0.75rem; color: var(--color-text-muted); }
+    .doc-download-icon { color: var(--color-text-faint); transition: color var(--transition); }
+    .doc-row:hover .doc-download-icon { color: var(--color-primary); }
+
+    .footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--color-border);
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--color-text-faint);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== LOGIN VIEW ==================== -->
+  <div id="loginView">
+    <div class="login-card">
+      <div class="logo-mark">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="8" fill="#4f98a3" fill-opacity="0.12"/>
+          <path d="M12 28V12h3.5l4.5 9.5L24.5 12H28v16h-3v-9.5l-3.5 7h-3l-3.5-7V28H12z" fill="#4f98a3"/>
+        </svg>
+        <h1>Koziol Brothers<span class="subtitle">Investment Portal</span></h1>
+      </div>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter portal password" autocomplete="off">
+        </div>
+        <button type="submit" class="btn-primary">Sign In</button>
+        <p id="errorMsg" class="error-msg">Incorrect password. Try again.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== PORTAL VIEW ==================== -->
+  <div id="portalView">
+    <header class="header">
+      <div class="header-left">
+        <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="8" fill="#4f98a3" fill-opacity="0.12"/>
+          <path d="M12 28V12h3.5l4.5 9.5L24.5 12H28v16h-3v-9.5l-3.5 7h-3l-3.5-7V28H12z" fill="#4f98a3"/>
+        </svg>
+        <div>
+          <h1>Koziol Brothers LLC</h1>
+          <span>Investment Portal</span>
+        </div>
+      </div>
+      <button class="btn-signout" id="signOutBtn">Sign Out</button>
+    </header>
+
+    <main class="main">
+      <div class="section-label">Dashboard</div>
+      <h2 class="section-title">Allocation Overview</h2>
+
+      <!-- Row 1: Strategy + Actual -->
+      <div class="dashboard-grid">
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div class="chart-card-title">Strategy</div>
+            <span class="chart-card-badge badge-strategy">Target</span>
+          </div>
+          <div class="chart-container">
+            <canvas id="strategyChart"></canvas>
+            <div class="chart-total">
+              <div class="chart-total-value">$3.01M</div>
+              <div class="chart-total-label">Total Value</div>
+            </div>
+          </div>
+          <div class="chart-legend" id="strategyLegend"></div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div class="chart-card-title">Actual Holdings</div>
+            <span class="chart-card-badge badge-actual">Current</span>
+          </div>
+          <div class="chart-container">
+            <canvas id="actualChart"></canvas>
+            <div class="chart-total">
+              <div class="chart-total-value">$3.01M</div>
+              <div class="chart-total-label">Total Value</div>
+            </div>
+          </div>
+          <div class="chart-legend" id="actualLegend"></div>
+        </div>
+      </div>
+
+      <!-- Row 2: Investment Detail Strategy + Actual -->
+      <div class="dashboard-grid">
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div class="chart-card-title">Investment Detail</div>
+            <span class="chart-card-badge badge-detail">Strategy</span>
+          </div>
+          <div class="chart-container">
+            <canvas id="detailStrategyChart"></canvas>
+            <div class="chart-total">
+              <div class="chart-total-value">$950K</div>
+              <div class="chart-total-label">Investable</div>
+            </div>
+          </div>
+          <div class="chart-legend" id="detailStrategyLegend"></div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div class="chart-card-title">Investment Detail</div>
+            <span class="chart-card-badge badge-actual">Actual</span>
+          </div>
+          <div class="empty-state" id="detailActualEmpty">
+            <div class="empty-state-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="empty-state-title">No positions yet</div>
+            <div class="empty-state-desc">$1,217,452 in uninvested cash. This chart will populate once trading begins in Fidelity.</div>
+          </div>
+          <div class="chart-container" id="detailActualChartWrap" style="display:none;">
+            <canvas id="detailActualChart"></canvas>
+            <div class="chart-total">
+              <div class="chart-total-value" id="detailActualTotal">$0</div>
+              <div class="chart-total-label">Invested</div>
+            </div>
+          </div>
+          <div class="chart-legend" id="detailActualLegend" style="display:none;"></div>
+        </div>
+      </div>
+
+      <!-- Documents -->
+      <hr class="section-divider">
+      <div class="section-label">Documents</div>
+      <h2 class="section-title">Document Library</h2>
+
+      <div class="doc-category">
+        <div class="doc-category-label">Strategy Reports</div>
+        <div class="doc-list">
+          <a class="doc-row" href="docs/portfolio-strategy-v2.pdf" target="_blank" rel="noopener noreferrer">
+            <div class="doc-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="doc-info">
+              <div class="doc-title">Portfolio Strategy V2</div>
+              <div class="doc-meta">Updated Apr 5, 2026 · 8 pages · Core positions, sector allocation, watchlist</div>
+            </div>
+            <svg class="doc-download-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </a>
+          <a class="doc-row" href="docs/stock-analysis-report.pdf" target="_blank" rel="noopener noreferrer">
+            <div class="doc-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="doc-info">
+              <div class="doc-title">53-Stock Analysis Report</div>
+              <div class="doc-meta">Apr 4, 2026 · 48 pages · Full profiles, P/E, moat analysis, bull/bear cases</div>
+            </div>
+            <svg class="doc-download-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="doc-category">
+        <div class="doc-category-label">Weekly Reports</div>
+        <div class="doc-list">
+          <div class="doc-row" style="cursor: default; opacity: 0.5; border-color: transparent;">
+            <div class="doc-icon" style="background: rgba(85,87,112,0.1);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-text-faint)"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="doc-info">
+              <div class="doc-title" style="color: var(--color-text-faint);">Weekly briefings will appear here</div>
+              <div class="doc-meta">Scheduled every Sunday at 7:00 PM CDT</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        Koziol Brothers LLC · Confidential · 15 Garden Street, Nashville, TN 37210
+      </div>
+    </main>
+  </div>
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script>
+    // ---- AUTH ----
+    var isAuthed = false;
+
+    function showPortal() {
+      isAuthed = true;
+      document.getElementById('loginView').style.display = 'none';
+      document.getElementById('portalView').style.display = 'block';
+      initCharts();
+    }
+
+    function showLogin() {
+      isAuthed = false;
+      document.getElementById('portalView').style.display = 'none';
+      document.getElementById('loginView').style.display = 'flex';
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var pw = document.getElementById('password').value;
+      if (pw === 'koziol2026') {
+        showPortal();
+      } else {
+        document.getElementById('errorMsg').style.display = 'block';
+      }
+    });
+
+    document.getElementById('signOutBtn').addEventListener('click', function() {
+      document.getElementById('password').value = '';
+      document.getElementById('errorMsg').style.display = 'none';
+      showLogin();
+    });
+
+    // ---- DATA ----
+    var strategyData = {
+      labels: ['Real Estate','Public Equities','Aera Systems','Cash Reserves','Harpeth Overlook','Gold','Crypto','Commodities','Private Funds'],
+      values: [1100000, 693947, 500000, 267839, 190690, 97396, 60873, 60873, 36524],
+      colors: ['#e89530','#5591c7','#4f98a3','#6daa45','#7a6fdf','#d4a843','#dd6974','#bb7d53','#a89fef']
+    };
+
+    var actualData = {
+      labels: ['Real Estate','Aera Systems','Cash (Uninvested)','Harpeth Overlook'],
+      values: [1100000, 500000, 1217452, 190690],
+      colors: ['#e89530','#4f98a3','#6daa45','#7a6fdf']
+    };
+
+    var stockPortion = 693947;
+    var detailStrategyData = {
+      labels: [
+        'NVDA','RKLB','AMD','ANET','BE','EQT','CRWV','TSLA','ISRG',
+        'MU','SEI','COIN','FSLR','FCX','CGNX','HOOD','SOFI',
+        'Watchlist Reserve','Gold (GLD)','BTC','SOL','Commodities (CPER)','Fundrise VCX'
+      ],
+      values: [
+        Math.round(stockPortion*0.10), Math.round(stockPortion*0.07),
+        Math.round(stockPortion*0.05), Math.round(stockPortion*0.05),
+        Math.round(stockPortion*0.05), Math.round(stockPortion*0.05),
+        Math.round(stockPortion*0.05), Math.round(stockPortion*0.05),
+        Math.round(stockPortion*0.05), Math.round(stockPortion*0.04),
+        Math.round(stockPortion*0.04), Math.round(stockPortion*0.04),
+        Math.round(stockPortion*0.04), Math.round(stockPortion*0.04),
+        Math.round(stockPortion*0.03), Math.round(stockPortion*0.03),
+        Math.round(stockPortion*0.03), Math.round(stockPortion*0.19),
+        97396, Math.round(60873*0.65), Math.round(60873*0.35), 60873, 36524
+      ],
+      colors: [
+        '#3b82f6','#0ea5e9','#6366f1','#2563eb','#22c55e','#16a34a',
+        '#0284c7','#ef4444','#a78bfa','#818cf8','#34d399','#f59e0b',
+        '#84cc16','#bb7d53','#c084fc','#fb923c','#38bdf8','#3b3d52',
+        '#d4a843','#f97316','#a855f7','#92400e','#8b8d9e'
+      ]
+    };
+
+    // Detail Actual — empty for now
+    var detailActualData = { labels: [], values: [], colors: [] };
+
+    // ---- CHART ENGINE ----
+    var doughnutOptions = {
+      responsive: true,
+      maintainAspectRatio: true,
+      cutout: '62%',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1e2030',
+          borderColor: '#2a2d3e',
+          borderWidth: 1,
+          titleFont: { family: "'Inter', sans-serif", size: 12, weight: 600 },
+          bodyFont: { family: "'Inter', sans-serif", size: 11 },
+          padding: 10,
+          cornerRadius: 8,
+          displayColors: true,
+          boxWidth: 8,
+          boxHeight: 8,
+          boxPadding: 4,
+          callbacks: {
+            label: function(ctx) {
+              var val = ctx.raw;
+              var total = ctx.dataset.data.reduce(function(a,b){return a+b;},0);
+              var pct = ((val/total)*100).toFixed(1);
+              return ' $'+val.toLocaleString()+' ('+pct+'%)';
+            }
+          }
+        }
+      },
+      animation: { animateRotate: true, duration: 800, easing: 'easeInOutQuart' }
+    };
+
+    function createChart(canvasId, data) {
+      var filtered = {labels:[],values:[],colors:[]};
+      data.labels.forEach(function(label,i){
+        if(data.values[i]>0){
+          filtered.labels.push(label);
+          filtered.values.push(data.values[i]);
+          filtered.colors.push(data.colors[i]);
+        }
+      });
+      if(filtered.values.length===0) return null;
+      var ctx = document.getElementById(canvasId).getContext('2d');
+      return new Chart(ctx,{
+        type:'doughnut',
+        data:{
+          labels:filtered.labels,
+          datasets:[{
+            data:filtered.values,
+            backgroundColor:filtered.colors,
+            borderColor:'#171921',
+            borderWidth:2,
+            hoverBorderColor:'#171921',
+            hoverBorderWidth:2,
+            hoverOffset:5
+          }]
+        },
+        options:doughnutOptions
+      });
+    }
+
+    function buildLegend(containerId, data) {
+      var container = document.getElementById(containerId);
+      var total = data.values.reduce(function(a,b){return a+b;},0);
+      var html = '';
+      data.labels.forEach(function(label,i){
+        if(data.values[i]>0){
+          var pct = ((data.values[i]/total)*100).toFixed(1);
+          html += '<div class="legend-item">'+
+            '<span class="legend-dot" style="background:'+data.colors[i]+'"></span>'+
+            '<span class="legend-name">'+label+'</span>'+
+            '<span class="legend-value">'+pct+'%</span>'+
+          '</div>';
+        }
+      });
+      container.innerHTML = html;
+    }
+
+    var chartsInitialized = false;
+    function initCharts() {
+      if (chartsInitialized) return;
+      chartsInitialized = true;
+      createChart('strategyChart', strategyData);
+      createChart('actualChart', actualData);
+      createChart('detailStrategyChart', detailStrategyData);
+      buildLegend('strategyLegend', strategyData);
+      buildLegend('actualLegend', actualData);
+      buildLegend('detailStrategyLegend', detailStrategyData);
+
+      if (detailActualData.values.length > 0) {
+        document.getElementById('detailActualEmpty').style.display = 'none';
+        document.getElementById('detailActualChartWrap').style.display = '';
+        document.getElementById('detailActualLegend').style.display = '';
+        createChart('detailActualChart', detailActualData);
+        buildLegend('detailActualLegend', detailActualData);
+      }
+    }
+  </script>
+</body>
+</html>
