@@ -459,7 +459,7 @@
           <div class="chart-container">
             <canvas id="actualChart"></canvas>
             <div class="chart-total">
-              <div class="chart-total-value">$2.36M</div>
+              <div class="chart-total-value">$2.72M</div>
               <div class="chart-total-label">Total Value</div>
             </div>
           </div>
@@ -499,7 +499,7 @@
           <div class="chart-container" id="detailActualChartWrap" style="display:none;">
             <canvas id="detailActualChart"></canvas>
             <div class="chart-total">
-              <div class="chart-total-value" id="detailActualTotal">$508K</div>
+              <div class="chart-total-value" id="detailActualTotal">$927K</div>
               <div class="chart-total-label">Invested</div>
             </div>
           </div>
@@ -603,7 +603,7 @@
 
     var actualData = {
       labels: ['Real Estate','Public Equities','Aera Systems','Cash Reserves','Harpeth Overlook','Commodities','Crypto','Private Funds'],
-      values: [1100000, 266650, 500000, 241438, 190690, 64437, 0, 0],
+      values: [1100000, 567031, 500000, 295515, 190690, 64437, 0, 0],
       colors: ['#e89530','#5591c7','#4f98a3','#6daa45','#7a6fdf','#d4a843','#dd6974','#a89fef']
     };
 
@@ -612,13 +612,13 @@
         'NVDA','AMD','RKLB','ANET','TSLA','ISRG','FSLR','MRVL',
         'CRWV','MU','COIN','EQT','FCX','BE','SOFI',
         'HOOD','SEI','CGNX',
-        'Gold (GLD)','BTC','SOL','Commodities (CPER)','Fundrise VCX','SpaceX Reserve'
+        'Gold (GLD)','BTC','SOL','Commodities (CPER)','Fundrise VCX','Cash'
       ],
       values: [
         36747, 36747, 32154, 27560, 27560, 27560, 27560, 18373,
         22967, 22967, 22967, 22967, 22967, 22967, 22967,
         18373, 18373, 18373,
-        73494, 22967, 13780, 9187, 45934, 36747
+        73494, 22967, 13780, 9187, 45934, 303162
       ],
       colors: [
         '#3b82f6','#6366f1','#0ea5e9','#2563eb','#ef4444','#a78bfa','#84cc16','#818cf8',
@@ -628,7 +628,7 @@
       ]
     };
 
-    // Detail Actual — current Fidelity positions + Chase cash
+    // Detail Actual — current Fidelity positions + cash (MM + Chase)
     var detailActualData = {
       labels: [
         'NVDA','AMD','RKLB','ANET','TSLA','ISRG','FSLR','MRVL',
@@ -636,15 +636,15 @@
         'HOOD',
         'Gold (GLD)','Silver (SLV)',
         'QQQ','VRT','SPCE','GOOG','AFRM',
-        'Chase Cash'
+        'Cash'
       ],
       values: [
-        17600, 18560, 18800, 17640, 16700, 15300, 22000, 23200,
-        19400, 20500, 17850, 21600, 16500,
-        21000,
+        42442, 40432, 34025, 51573, 34895, 29290, 28486, 25698,
+        35700, 20981, 24762, 25005, 20275,
+        24217,
         43713, 20724,
         30554, 22133, 30200, 22100, 24265,
-        47762
+        295515
       ],
       colors: [
         '#3b82f6','#6366f1','#0ea5e9','#2563eb','#ef4444','#a78bfa','#84cc16','#818cf8',
