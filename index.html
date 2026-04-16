@@ -459,7 +459,7 @@
           <div class="chart-container">
             <canvas id="actualChart"></canvas>
             <div class="chart-total">
-              <div class="chart-total-value">$2.72M</div>
+              <div class="chart-total-value">$2.85M</div>
               <div class="chart-total-label">Total Value</div>
             </div>
           </div>
@@ -499,7 +499,7 @@
           <div class="chart-container" id="detailActualChartWrap" style="display:none;">
             <canvas id="detailActualChart"></canvas>
             <div class="chart-total">
-              <div class="chart-total-value" id="detailActualTotal">$927K</div>
+              <div class="chart-total-value" id="detailActualTotal">$1.05M</div>
               <div class="chart-total-label">Invested</div>
             </div>
           </div>
@@ -541,6 +541,16 @@
       <div class="doc-category">
         <div class="doc-category-label">Weekly Reports</div>
         <div class="doc-list">
+          <a class="doc-row" href="docs/weekly-report-2026-04-18.pdf" target="_blank" rel="noopener noreferrer">
+            <div class="doc-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="doc-info">
+              <div class="doc-title">Week of April 14 - April 18</div>
+              <div class="doc-meta">April 18, 2026 · 10 pages · Portfolio at $1.05M, strong rally led by BE +32%, CRWV +27%, HOOD +25%. MU, INTC, FLY, AMZN, NOW added. SPCE sold.</div>
+            </div>
+            <svg class="doc-download-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </a>
           <a class="doc-row" href="docs/weekly-report-2026-04-10.pdf" target="_blank" rel="noopener noreferrer">
             <div class="doc-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -603,7 +613,7 @@
 
     var actualData = {
       labels: ['Real Estate','Public Equities','Aera Systems','Cash Reserves','Harpeth Overlook','Commodities','Crypto','Private Funds'],
-      values: [1100000, 567031, 500000, 295515, 190690, 64437, 0, 0],
+      values: [1100000, 716046, 500000, 273266, 190690, 65598, 0, 0],
       colors: ['#e89530','#5591c7','#4f98a3','#6daa45','#7a6fdf','#d4a843','#dd6974','#a89fef']
     };
 
@@ -630,30 +640,9 @@
 
     // Detail Actual — current Fidelity positions + cash (MM + Chase)
     var detailActualData = {
-      labels: [
-        'NVDA','AMD','RKLB','ANET','TSLA','ISRG','FSLR','MRVL',
-        'CRWV','COIN','FCX','BE','SOFI',
-        'HOOD',
-        'Gold (GLD)','Silver (SLV)',
-        'QQQ','VRT','SPCE','GOOG','AFRM',
-        'Cash'
-      ],
-      values: [
-        42442, 40432, 34025, 51573, 34895, 29290, 28486, 25698,
-        35700, 20981, 24762, 25005, 20275,
-        24217,
-        43713, 20724,
-        30554, 22133, 30200, 22100, 24265,
-        295515
-      ],
-      colors: [
-        '#3b82f6','#6366f1','#0ea5e9','#2563eb','#ef4444','#a78bfa','#84cc16','#818cf8',
-        '#0284c7','#f59e0b','#bb7d53','#22c55e','#38bdf8',
-        '#fb923c',
-        '#d4a843','#94a3b8',
-        '#8b5cf6','#06b6d4','#f43f5e','#14b8a6','#e879f9',
-        '#6daa45'
-      ]
+      labels: ['ANET','NVDA','Gold (GLD)','AMD','CRWV','TSLA','NOW','RKLB','BE','QQQ','HOOD','ISRG','AFRM','FSLR','MRVL','FCX','AMZN','COIN','SOFI','GOOG','MU','VRT','INTC','FLY','Silver (SLV)','Cash'],
+      values: [54016, 44746, 44046, 42590, 41542, 39195, 37676, 36800, 32076, 31870, 30562, 30443, 29810, 27328, 26920, 25076, 24850, 24488, 23488, 23413, 22812, 22587, 22080, 21632, 21552, 273266],
+      colors: ['#2563eb','#3b82f6','#d4a843','#6366f1','#0284c7','#ef4444','#f472b6','#0ea5e9','#22c55e','#8b5cf6','#fb923c','#a78bfa','#e879f9','#84cc16','#818cf8','#bb7d53','#a3e635','#f59e0b','#38bdf8','#14b8a6','#fbbf24','#06b6d4','#4ade80','#c4b5fd','#94a3b8','#6daa45']
     };
 
     // ---- CHART ENGINE ----
